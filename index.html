@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habitly — Track Your Daily Habits</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-logo">
+        <svg class="nav-logo-mark" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="8" fill="#4169E1"/>
+          <path d="M8 14.5L11.5 18L20 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="nav-wordmark">Habitly</span>
+      </div>
+      <button class="btn-primary" id="openModalBtn" aria-label="Add a new habit">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Add Habit
+      </button>
+    </nav>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero / Progress Section -->
+    <section class="hero" aria-label="Today's progress">
+      <div class="hero-text">
+        <p class="hero-date" id="heroDate"></p>
+        <h1 class="hero-title" id="heroGreeting">Good morning.</h1>
+        <p class="hero-stat" id="heroStat">Add your first habit to get started.</p>
+      </div>
+      <div class="hero-ring-wrap" aria-hidden="true">
+        <svg class="progress-ring" viewBox="0 0 120 120" width="120" height="120">
+          <circle class="ring-track" cx="60" cy="60" r="50" />
+          <circle class="ring-fill" cx="60" cy="60" r="50" id="ringFill" />
+        </svg>
+        <div class="ring-label" id="ringLabel">0%</div>
+      </div>
+    </section>
+
+    <!-- Habits List -->
+    <section class="habits-section" aria-label="Habits list">
+      <h2 class="section-title">Today's Habits</h2>
+      <div class="habits-list" id="habitsList" role="list"></div>
+      <div class="empty-state" id="emptyState" aria-live="polite">
+        <div class="empty-icon" aria-hidden="true">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <rect width="56" height="56" rx="16" fill="#EEF2FF"/>
+            <path d="M18 28.5L24 34.5L38 20.5" stroke="#4169E1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="empty-title">No habits yet</p>
+        <p class="empty-sub">Tap "Add Habit" to start building your routine.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Add Habit Modal -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal">
+      <h3 class="modal-title" id="modalTitle">New Habit</h3>
+      <form id="habitForm" novalidate>
+
+        <div class="form-field">
+          <label class="form-label" for="habitName">Habit name</label>
+          <input
+            class="form-input"
+            type="text"
+            id="habitName"
+            placeholder="e.g. Drink 8 glasses of water"
+            maxlength="60"
+            autocomplete="off"
+            required
+          />
+          <p class="form-error" id="habitNameError" role="alert" hidden>Please enter a habit name.</p>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Color</label>
+          <div class="color-picker" role="group" aria-label="Pick a color for this habit">
+            <label class="color-option" title="Mint">
+              <input type="radio" name="habitColor" value="#B8F0D3" checked />
+              <span class="color-swatch" style="background:#B8F0D3;"></span>
+            </label>
+            <label class="color-option" title="Pink">
+              <input type="radio" name="habitColor" value="#FFB3C6" />
+              <span class="color-swatch" style="background:#FFB3C6;"></span>
+            </label>
+            <label class="color-option" title="Lavender">
+              <input type="radio" name="habitColor" value="#D4B8F0" />
+              <span class="color-swatch" style="background:#D4B8F0;"></span>
+            </label>
+            <label class="color-option" title="Peach">
+              <input type="radio" name="habitColor" value="#FFD4B8" />
+              <span class="color-swatch" style="background:#FFD4B8;"></span>
+            </label>
+            <label class="color-option" title="Sky">
+              <input type="radio" name="habitColor" value="#B8D8F0" />
+              <span class="color-swatch" style="background:#B8D8F0;"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Add Habit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
