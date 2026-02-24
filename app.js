@@ -6,8 +6,21 @@
 'use strict';
 
 // --- Constants ---
-const STORAGE_KEY = 'habitly_data';
 const RING_CIRCUMFERENCE = 2 * Math.PI * 50; // 314.16
+
+// --- Session ---
+const SESSION_KEY = 'habitly_session';
+
+function getSession() {
+  try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }
+  catch (_) { return null; }
+}
+
+// Per-user storage key so different accounts don't share habits
+const currentSession = getSession();
+const STORAGE_KEY = currentSession
+  ? `habitly_data_${currentSession.userId}`
+  : 'habitly_data';
 
 // --- State ---
 let habits = [];
@@ -324,6 +337,20 @@ habitForm.addEventListener('submit', (e) => {
   addHabit(nameVal, selectedColor);
   closeModal();
 });
+
+// --- Logout ---
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem(SESSION_KEY);
+  window.location.replace('auth.html');
+});
+
+// --- Show current user in nav ---
+(function () {
+  const navUsername = document.getElementById('navUsername');
+  if (navUsername && currentSession) {
+    navUsername.textContent = currentSession.username;
+  }
+})();
 
 // --- Init ---
 loadData();

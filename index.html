@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Habitly — Track Your Daily Habits</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <script>
+    // Auth guard — runs synchronously, no flash of content
+    (function () {
+      try {
+        var s = JSON.parse(localStorage.getItem('habitly_session') || 'null');
+        if (!s || !s.userId) window.location.replace('auth.html');
+      } catch (_) {
+        window.location.replace('auth.html');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -18,12 +30,21 @@
         </svg>
         <span class="nav-wordmark">Habitly</span>
       </div>
-      <button class="btn-primary" id="openModalBtn" aria-label="Add a new habit">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Add Habit
-      </button>
+      <div class="nav-user-area">
+        <span class="nav-username" id="navUsername"></span>
+        <button class="btn-logout" id="logoutBtn" type="button" aria-label="Sign out">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M5 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3M9.5 4.5L12 7l-2.5 2.5M12 7H5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Sign out
+        </button>
+        <button class="btn-primary" id="openModalBtn" aria-label="Add a new habit">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Add Habit
+        </button>
+      </div>
     </nav>
   </header>
 

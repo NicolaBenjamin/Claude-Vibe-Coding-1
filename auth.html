@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habitly — Sign In</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <script>
+    // Redirect to app if already logged in
+    (function () {
+      try {
+        const s = JSON.parse(localStorage.getItem('habitly_session') || 'null');
+        if (s && s.userId) window.location.replace('index.html');
+      } catch (_) {}
+    })();
+  </script>
+</head>
+<body class="auth-body">
+
+  <!-- ── STEP 1: GitHub Setup ── -->
+  <div class="auth-screen" id="setupScreen" hidden>
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="8" fill="#4169E1"/>
+          <path d="M8 14.5L11.5 18L20 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="auth-logo-name">Habitly</span>
+      </div>
+
+      <h1 class="auth-title">Connect GitHub</h1>
+      <p class="auth-subtitle">
+        Habitly stores your account data in a JSON file inside your GitHub repository.
+        Your token is only saved locally in your browser.
+      </p>
+
+      <form id="setupForm" novalidate>
+
+        <div class="form-field">
+          <label class="form-label" for="setupToken">Personal Access Token</label>
+          <input class="form-input" type="password" id="setupToken"
+            placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" required />
+          <p class="form-hint">
+            Needs <strong>repo</strong> scope. &nbsp;
+            <a href="https://github.com/settings/tokens/new?scopes=repo&description=Habitly" target="_blank" rel="noopener noreferrer">
+              Create token ↗
+            </a>
+          </p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="setupOwner">Owner</label>
+            <input class="form-input" type="text" id="setupOwner"
+              placeholder="your-username" autocomplete="off" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="setupRepo">Repository</label>
+            <input class="form-input" type="text" id="setupRepo"
+              placeholder="repo-name" autocomplete="off" required />
+          </div>
+        </div>
+
+        <p class="form-error" id="setupError" hidden></p>
+
+        <button type="submit" class="btn-primary auth-btn">
+          Connect &amp; Continue
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: Login / Register ── -->
+  <div class="auth-screen" id="authScreen" hidden>
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        <svg width="36" height="36" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="8" fill="#4169E1"/>
+          <path d="M8 14.5L11.5 18L20 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="auth-logo-name">Habitly</span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="auth-tabs" role="tablist" aria-label="Authentication mode">
+        <button class="auth-tab active" data-tab="login" role="tab"
+          aria-selected="true">Sign In</button>
+        <button class="auth-tab" data-tab="register" role="tab"
+          aria-selected="false">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" novalidate>
+        <div class="form-field">
+          <label class="form-label" for="loginUsername">Username</label>
+          <input class="form-input" type="text" id="loginUsername"
+            placeholder="your-username" autocomplete="username" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input class="form-input" type="password" id="loginPassword"
+            placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <p class="form-error" id="loginError" hidden></p>
+        <button type="submit" class="btn-primary auth-btn">Sign In</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" novalidate hidden>
+        <div class="form-field">
+          <label class="form-label" for="regUsername">Username</label>
+          <input class="form-input" type="text" id="regUsername"
+            placeholder="your-username" autocomplete="username" required />
+          <p class="form-hint">Letters, numbers, _ and – only. Min. 3 characters.</p>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="regPassword">Password</label>
+          <input class="form-input" type="password" id="regPassword"
+            placeholder="••••••••" autocomplete="new-password" required />
+          <p class="form-hint">At least 6 characters.</p>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="regConfirm">Confirm Password</label>
+          <input class="form-input" type="password" id="regConfirm"
+            placeholder="••••••••" autocomplete="new-password" required />
+        </div>
+        <p class="form-error" id="registerError" hidden></p>
+        <button type="submit" class="btn-primary auth-btn">Create Account</button>
+      </form>
+
+      <button id="reconfigureBtn" class="reconfigure-btn" type="button">
+        Change GitHub settings
+      </button>
+
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+</body>
+</html>
