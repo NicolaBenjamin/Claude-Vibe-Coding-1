@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "id": "fdb98542-d780-4891-96bf-0479874d32fe",
+      "username": "nico_habitly",
+      "passwordHash": "76f3771b074c0ffd537d355568319b11a80b2f0c1bd85c6e5e883033ee53e793",
+      "createdAt": "2026-02-24T09:04:49.447Z"
+    }
+  ]
+}
